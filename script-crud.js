@@ -1,12 +1,13 @@
 // encontrar o botão adicionar tarefa
 
 const btnAdicionarTarefa = document.querySelector('.app__button--add-task');
+const btnRemoverConcluidas = document.getElementById('btn-remover-concluidas');
 const formAdicionarTarefa = document.querySelector('.app__form-add-task');
 const textarea = document.querySelector('.app__form-textarea');
 const ulTarefas = document.querySelector('.app__section-task-list');
 const paragrafoDescricaoTarefa = document.querySelector('.app__section-active-task-description');
 
-const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
 let tarefaSelecionada = null;
 let liTarefaSelecionada = null;
 
@@ -107,3 +108,12 @@ document.addEventListener('FocoFinalizado', () => {
         atualizarTarefas();
     }
 });
+
+btnRemoverConcluidas.onclick = () => {
+    const seletor = ".app__section-task-list-item-complete";
+    document.querySelectorAll(seletor).forEach(elemento => {
+        elemento.remove();
+    });
+    tarefas = tarefas.filter(tarefa => !tarefa.completa);
+    atualizarTarefas();
+}
