@@ -31,10 +31,14 @@ function criarElementoTarefa(tarefa) {
     const botao = document.createElement('button');
 
     botao.onclick = () => {
+        // Indica ao navegador que desejo debugar
+        // debugger
         const novaDescricao = prompt("Qual é o novo nome da tarefa?");
-        paragrafo.textContent = novaDescricao;
-        tarefa.descricao = novaDescricao;
-        atualizarTarefas();
+        if (novaDescricao) {
+            paragrafo.textContent = novaDescricao;
+            tarefa.descricao = novaDescricao;
+            atualizarTarefas();
+        }
     }
 
     botao.classList.add('app_button-edit');
