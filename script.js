@@ -74,8 +74,13 @@ function alteraContexto(contexto) {
 const contagemRegressiva = () => {
     if (tempoDecorridoEmSegundos <= 0) {
         musicaFim.play();
-        zerar();
         alert('Tempo finalizado!');
+        const focoAtivo = html.getAttribute('data-contexto') == 'foco';
+        if (focoAtivo) {
+            const evento = new CustomEvent('FocoFinalizado');
+            document.dispatchEvent(evento);
+        }
+        zerar();
         return;
     }
     tempoDecorridoEmSegundos -= 1;
@@ -97,9 +102,9 @@ function iniciarOuPausar() {
 }
 
 function zerar() {
+    clearInterval(intervaloId);
     iniciarOuPausarMsg.textContent = "Começar";
     iniciarOuPausarImg.setAttribute('src', './imagens/play_arrow.png');
-    clearInterval(intervaloId);
     intervaloId = null;
 }
 
